@@ -1,6 +1,6 @@
 # Star Wars Api UI
 
-[DEMO LINK](https://aleksandra04.github.io/star_wars_api/)
+[DEMO LINK](https://aleksandra04.github.io/starwars-UI/)
 
 ## Instructions to run locally
 1. Clone the repo.
