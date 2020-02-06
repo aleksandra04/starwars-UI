@@ -16,6 +16,9 @@ const getObjectName = (key) => {
   if (['residents', 'pilots', 'characters'].includes(key)) {
     return 'people'
   }
+  if(key === 'homeworld') {
+    return 'planets'
+  }
   return key
 }
 

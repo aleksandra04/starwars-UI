@@ -76,6 +76,9 @@ export const uploadObject = (objectName, objectId) => dispatch => {
 export const uploadAddData = (objectData, objectName, keys) => dispatch => {
   dispatch(startLoading());
   for(let i in keys){
+    if(typeof(objectData[keys[i]]) === 'string'){
+      objectData[keys[i]] = [objectData[keys[i]]]
+    }
     let promises = objectData[keys[i]].map(url => fetch(url).then(y => y.json()));
     Promise.all(promises).then(results => {
       let data = {}

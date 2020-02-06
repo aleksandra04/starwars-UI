@@ -5,8 +5,8 @@ export const getIdFromUrl = (url) => {
 
 export const objectKeysMap = {
   "people": {
-    "show": ["name", "height", "mass", "hair_color", "skin_color", "eye_color", "birth_year", "gender", "homeworld"],
-    "load": ["films", "species", "vehicles", "starships"]
+    "show": ["name", "height", "mass", "hair_color", "skin_color", "eye_color", "birth_year", "gender"],
+    "load": ["homeworld", "films", "species", "vehicles", "starships"]
   },
   "planets": {
     "show": ["name", "rotation_period", "orbital_period", "diameter", "climate", "gravity", "terrain", "surface_water", "population"],
@@ -19,9 +19,9 @@ export const objectKeysMap = {
   "species": {
     "show": [
       "name", "classification", "designation", "average_height", "skin_colors",
-      "hair_colors", "eye_colors", "average_lifespan", "homeworld", "language"
+      "hair_colors", "eye_colors", "average_lifespan", "language"
     ],
-    "load": ["people", "films"]
+    "load": ["homeworld", "people", "films"]
   },
   "vehicles": {
     "show": [
