@@ -1,0 +1,56 @@
+.object {
+  height: 100vh;
+  padding: 30px;
+  color: white;
+
+  &__close {
+    width: 60px;
+    height: 30px;
+    border: 1px solid white;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 3px;
+    margin-left: 75%;
+
+    &:hover {
+      cursor: pointer;
+      border: 1px solid rgb(186, 162, 22);
+    }
+  }
+
+  &__row {
+    margin: 15px auto;
+    display: flex;
+    width: 80%;
+
+    &_title {
+      display: inline-block;
+      margin-right: 10px;
+      min-width: 130px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    &_text {
+      display: inline-block;
+      font-size: 22px;
+      color: rgb(186, 162, 22);
+    }
+
+    &_link {
+      color: rgb(219, 207, 137);
+      text-decoration: none;
+      display: inline-block;
+      margin-right: 10px;
+
+      &:hover {
+        color: rgb(186, 162, 22);
+      }
+    }
+  }
+}
+
+.loading {
+  font-size: 20px;
+  color: white;
+}

@@ -1,0 +1,84 @@
+.main {
+  height: 100vh;
+  margin: 0;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__header {
+    margin: 0 auto 30px;
+    color:rgb(186, 162, 22);
+    font-size: 46px;
+    font-weight: 800;
+  }
+}
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 500px;
+  margin: 0 auto 25px;
+
+  &__input {
+    margin-right: 20px;
+    width: 200px;
+    height: 35px;
+    border: 2px solid rgb(186, 162, 22);
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 5px;
+    outline: none;
+    font-size: 16px;
+    background: none;
+    color: rgb(186, 162, 22);
+  }
+
+  &__sort {
+    width: 120px;
+    height: 35px;
+    line-height: 22px;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 5px;
+    background-color: rgb(186, 162, 22);
+    font-weight: bold;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.films {
+  display: flex;
+  margin: 0 auto;
+  width: 70%;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+
+  &__card {
+    border: 1px solid black;
+    width: 240px;
+    height: 150px;
+    text-align: center;
+    margin-bottom: 13px;
+    border: 2px solid rgb(186, 162, 22);
+    border-radius: 5px;
+    color: rgb(186, 162, 22);
+    padding: 20px;
+    box-sizing: border-box;
+    font-weight: bold;
+    
+    &:hover {
+      cursor: pointer;
+    }
+
+    &_title {
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+  }
+}
