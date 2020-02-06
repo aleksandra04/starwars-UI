@@ -37,18 +37,3 @@ export const objectKeysMap = {
     "load": ["pilots", "films"]
   }
 }
-
-// ObjectComponent.propTypes = {
-//   addData: PropTypes.object.isRequired,
-//   objectData: PropTypes.object.isRequired,
-//   objectName: PropTypes.string.isRequired,
-//   loadObject: PropTypes.func.isRequired,
-//   loadAddData: PropTypes.func.isRequired,
-//   error: PropTypes.string,
-//   isLoading: PropTypes.bool,
-// };
-
-// ObjectComponent.defaultProps = {
-//   error: null,
-//   isLoading: false,
-// };

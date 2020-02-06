@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, useParams, useHistory } from 'react-router-dom';
-import { uploadObject, uploadAddData } from '../store/rootReducer'
-import { seleсtObjectData, seleсtObjectName, selectError, seleсtIsLoading, seleсtAdditionalData } from '../store/selectors'
+import { uploadObject, uploadAddData, clearState } from '../store/rootReducer'
+import { 
+  seleсtObjectData, seleсtObjectName, selectError, seleсtIsLoading,
+  seleсtAdditionalData
+} from '../store/selectors'
 import { getIdFromUrl, objectKeysMap } from "../helpers"
 import { Error } from './error'
 import Loader from './loader'
@@ -17,14 +21,16 @@ const getObjectName = (key) => {
 
 const getRenderName = (objectName) => objectName === 'films' ? 'title' : 'name'
 
+
 const ObjectComponent = ({
-  objectName, objectData, error, isLoading, loadObject, loadAddData, addData
+  objectName, objectData, error, isLoading, loadObject, loadAddData, addData, clearStateData
 }) => {
 
   let params = useParams()
   let history = useHistory()
 
   useEffect(() => {
+    clearStateData()
     loadObject(params.objname, +params.id);
   }, [params.objname, +params.id])
 
@@ -85,7 +91,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   loadObject: (objName, objId) => dispatch(uploadObject(objName, objId)),
-  loadAddData: (objData, objName, keys) => dispatch(uploadAddData(objData, objName, keys))
+  loadAddData: (objData, objName, keys) => dispatch(uploadAddData(objData, objName, keys)),
+  clearStateData: () => dispatch(clearState()) 
 });
 
 export default connect(
@@ -93,3 +100,17 @@ export default connect(
   mapDispatchToProps
 )(ObjectComponent);
 
+ObjectComponent.propTypes = {
+  addData: PropTypes.object.isRequired,
+  objectData: PropTypes.object.isRequired,
+  objectName: PropTypes.string.isRequired,
+  loadObject: PropTypes.func.isRequired,
+  loadAddData: PropTypes.func.isRequired,
+  error: PropTypes.string,
+  isLoading: PropTypes.bool,
+};
+
+ObjectComponent.defaultProps = {
+  error: null,
+  isLoading: false,
+};

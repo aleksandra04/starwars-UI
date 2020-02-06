@@ -5,6 +5,7 @@ const SET_LOAD_FILMS_ERROR = 'SET_LOAD_FILMS_ERROR';
 const SAVE_OBJECT = 'SAVE_OBJECT';
 const SAVE_OBJECT_NAME = 'SAVE_OBJECT_NAME';
 const SAVE_OBJECT_ADDITIONAL_DATA = 'SAVE_OBJECT_ADDITIONAL_DATA';
+const CLEAR_STATE = 'CLEAR_STATE';
 
 
 const saveFilms = value => ({
@@ -38,6 +39,10 @@ const saveObjectName = value => ({
 const saveObjectAdditionalData = (value) => ({
   type: SAVE_OBJECT_ADDITIONAL_DATA,
   payload: value,
+})
+
+export const clearState = () => ({
+  type: CLEAR_STATE
 })
 
 
@@ -131,6 +136,12 @@ export const rootReducer = (state = initialState, action) => {
           ...state.objectAddData,
           ...action.payload,
         }
+      }
+    case CLEAR_STATE:
+      return {
+        ...state,
+        objectData: null,
+        objectAddData: null
       }
     default:
       return state;

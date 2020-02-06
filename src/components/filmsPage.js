@@ -26,9 +26,9 @@ const FilmsPage = ({
   const searchParams = new URLSearchParams(location.search);
   const input = searchParams.get('query');
   const sortOrder = searchParams.get('sortOrder');
-
+  
   useEffect(() => {
-    loadFilms();
+    filmsData.length || loadFilms();
   }, [loadFilms])
 
   const handleInputChange = (value) => {
@@ -134,16 +134,16 @@ export default connect(
   mapDispatchToProps
 )(FilmsPage);
 
-// FilmsPage.propTypes = {
-//   filmsData: PropTypes.arrayOf(PropTypes.shape({})),
-//   match: PropTypes.string.isRequired,
-//   loadFilms: PropTypes.func.isRequired,
-//   error: PropTypes.string,
-//   isLoading: PropTypes.bool,
-// };
+FilmsPage.propTypes = {
+  filmsData: PropTypes.arrayOf(PropTypes.shape({})),
+  match: PropTypes.string.isRequired,
+  loadFilms: PropTypes.func.isRequired,
+  error: PropTypes.string,
+  isLoading: PropTypes.bool,
+};
 
-// FilmsPage.defaultProps = {
-//   filmsData: [],
-//   error: null,
-//   isLoading: false,
-// };
+FilmsPage.defaultProps = {
+  filmsData: [],
+  error: null,
+  isLoading: false,
+};
