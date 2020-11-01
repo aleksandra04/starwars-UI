@@ -9,144 +9,144 @@ const CLEAR_STATE = 'CLEAR_STATE';
 
 
 const saveFilms = value => ({
-  type: SAVE_FILMS,
-  payload: value,
+    type: SAVE_FILMS,
+    payload: value,
 })
 
 const startLoading = () => ({
-  type: START_LOADING,
+    type: START_LOADING,
 })
 
 const stoptLoading = () => ({
-  type: STOP_LOADING,
+    type: STOP_LOADING,
 })
 
 const setFilmsError = value => ({
-  type: SET_LOAD_FILMS_ERROR,
-  payload: value,
+    type: SET_LOAD_FILMS_ERROR,
+    payload: value,
 })
 
 const saveObject = value => ({
-  type: SAVE_OBJECT,
-  payload: value,
+    type: SAVE_OBJECT,
+    payload: value,
 })
 
 const saveObjectName = value => ({
-  type: SAVE_OBJECT_NAME,
-  payload: value,
+    type: SAVE_OBJECT_NAME,
+    payload: value,
 })
 
 const saveObjectAdditionalData = (value) => ({
-  type: SAVE_OBJECT_ADDITIONAL_DATA,
-  payload: value,
+    type: SAVE_OBJECT_ADDITIONAL_DATA,
+    payload: value,
 })
 
 export const clearState = () => ({
-  type: CLEAR_STATE
+    type: CLEAR_STATE
 })
 
 
 export const uploadFilms = () => dispatch => {
-  dispatch(startLoading());
+    dispatch(startLoading());
 
-  fetch('https://swapi.co/api/films/')
-    .then(res => res.json())
-    .then(({ results }) => {
-      dispatch(saveFilms(results))
-    })
-    .catch(error => dispatch(setFilmsError(error.message)))
-    .finally(() => dispatch(stoptLoading()))
+    fetch('https://swapi.dev/api/films/')
+        .then(res => res.json())
+        .then(({ results }) => {
+            dispatch(saveFilms(results))
+        })
+        .catch(error => dispatch(setFilmsError(error.message)))
+        .finally(() => dispatch(stoptLoading()))
 }
 
 export const uploadObject = (objectName, objectId) => dispatch => {
 
-  dispatch(startLoading());
+    dispatch(startLoading());
 
-  fetch(`https://swapi.co/api/${objectName}/${objectId}`)
-    .then(res => res.json())
-    .then(( results ) => {
-      dispatch(saveObjectName(objectName))
-      dispatch(saveObject(results))
-    })
-    .catch(error => dispatch(setFilmsError(error.message)))
-    .finally(() => dispatch(stoptLoading()))
+    fetch(`https://swapi.dev/api/${objectName}/${objectId}`)
+        .then(res => res.json())
+        .then((results) => {
+            dispatch(saveObjectName(objectName))
+            dispatch(saveObject(results))
+        })
+        .catch(error => dispatch(setFilmsError(error.message)))
+        .finally(() => dispatch(stoptLoading()))
 }
 
 
 export const uploadAddData = (objectData, objectName, keys) => dispatch => {
-  dispatch(startLoading());
-  for(let i in keys){
-    if(typeof(objectData[keys[i]]) === 'string'){
-      objectData[keys[i]] = [objectData[keys[i]]]
+    dispatch(startLoading());
+    for (let i in keys) {
+        if (typeof(objectData[keys[i]]) === 'string') {
+            objectData[keys[i]] = [objectData[keys[i]]]
+        }
+        let promises = objectData[keys[i]].map(url => fetch(url).then(y => y.json()));
+        Promise.all(promises).then(results => {
+            let data = {}
+            data[keys[i]] = results
+            dispatch(saveObjectAdditionalData(data));
+        });
     }
-    let promises = objectData[keys[i]].map(url => fetch(url).then(y => y.json()));
-    Promise.all(promises).then(results => {
-      let data = {}
-      data[keys[i]] = results
-      dispatch(saveObjectAdditionalData(data));
-    });
-  }
-  dispatch(stoptLoading())
+    dispatch(stoptLoading())
 }
 
 const initialState = {
-  filmsData: null,
-  isLoading: false,
-  error: null,
-  objectData: null,
-  objectName: 'films',
-  objectAddData: null,
+    filmsData: null,
+    isLoading: false,
+    error: null,
+    objectData: null,
+    objectName: 'films',
+    objectAddData: null,
 }
 
 export const rootReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case SAVE_FILMS:
-      return {
-        ...state,
-        error: null,
-        filmsData: action.payload,
-      }
-    case START_LOADING:
-      return {
-        ...state,
-        isLoading: true,
-      }
-    case STOP_LOADING:
-      return {
-        ...state,
-        isLoading: false,
-      }
-    case SET_LOAD_FILMS_ERROR:
-      return {
-        ...state,
-        error: action.payload,
-        filmsData: null
-      }
-    case SAVE_OBJECT:
-      return {
-        ...state,
-        objectData: action.payload,
-      }
-      case SAVE_OBJECT_NAME:
-        return {
-          ...state,
-          objectName: action.payload,
-        }
-    case SAVE_OBJECT_ADDITIONAL_DATA:
-      return {
-        ...state,
-        objectAddData: {
-          ...state.objectAddData,
-          ...action.payload,
-        }
-      }
-    case CLEAR_STATE:
-      return {
-        ...state,
-        objectData: null,
-        objectAddData: null
-      }
-    default:
-      return state;
-  }
+    switch (action.type) {
+        case SAVE_FILMS:
+            return {
+                ...state,
+                error: null,
+                filmsData: action.payload,
+            }
+        case START_LOADING:
+            return {
+                ...state,
+                isLoading: true,
+            }
+        case STOP_LOADING:
+            return {
+                ...state,
+                isLoading: false,
+            }
+        case SET_LOAD_FILMS_ERROR:
+            return {
+                ...state,
+                error: action.payload,
+                filmsData: null
+            }
+        case SAVE_OBJECT:
+            return {
+                ...state,
+                objectData: action.payload,
+            }
+        case SAVE_OBJECT_NAME:
+            return {
+                ...state,
+                objectName: action.payload,
+            }
+        case SAVE_OBJECT_ADDITIONAL_DATA:
+            return {
+                ...state,
+                objectAddData: {
+                    ...state.objectAddData,
+                    ...action.payload,
+                }
+            }
+        case CLEAR_STATE:
+            return {
+                ...state,
+                objectData: null,
+                objectAddData: null
+            }
+        default:
+            return state;
+    }
 }
